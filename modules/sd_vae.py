@@ -57,6 +57,7 @@ def restore_base_vae(model):
         print("Restoring base VAE")
         _load_vae_dict(model, base_vae)
         loaded_vae_file = None
+        shared.opts.sd_vae = "None"
     delete_base_vae()
 
 
@@ -209,3 +210,7 @@ def reload_vae_weights(sd_model=None, vae_file="auto"):
 
     print("VAE Weights loaded.")
     return sd_model
+
+
+def is_valid_vae(vae_file: str):
+    return vae_file in vae_dict
