@@ -222,7 +222,6 @@ def find_vae_key(vae_name, vae_hash=None):
        If vae_hash is provided, this function will return the name of any local VAE file that matches the hash.
        If vae_hash is None, this function will return vae_name if any local VAE files are named vae_name
     """
-    print(f"find vae key {vae_name} : {vae_hash}")
     if vae_hash is not None and (matched := vae_hash_to_filename.get(vae_hash)):
         if vae_name in matched or vae_name.lower() in matched:
             return vae_name
