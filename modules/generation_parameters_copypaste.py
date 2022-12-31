@@ -6,7 +6,7 @@ from pathlib import Path
 
 import gradio as gr
 from modules.shared import script_path
-from modules import shared
+from modules import shared, sd_vae
 import tempfile
 from PIL import Image
 
@@ -221,6 +221,11 @@ Steps: 20, Sampler: Euler a, CFG scale: 7, Seed: 965400086, Size: 512x512, Model
         hypernet_name = res["Hypernet"]
         hypernet_hash = res.get("Hypernet hash", None)
         res["Hypernet"] = find_hypernetwork_key(hypernet_name, hypernet_hash)
+
+    if "VAE" in res:
+        vae_name = res["VAE"]
+        vae_hash = res.get("VAE hash", None)
+        res["VAE"] = sd_vae.find_vae_key(vae_name, vae_hash)
 
     return res
 
