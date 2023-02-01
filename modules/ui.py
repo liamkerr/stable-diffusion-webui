@@ -453,6 +453,7 @@ def create_ui():
     reload_javascript()
 
     parameters_copypaste.reset()
+    override_settings_dropdowns = {}
 
     modules.scripts.scripts_current = modules.scripts.scripts_txt2img
     modules.scripts.scripts_txt2img.initialize_scripts(is_img2img=False)
@@ -519,6 +520,7 @@ def create_ui():
                     elif category == "override_settings":
                         with FormRow(elem_id="txt2img_override_settings_row") as row:
                             override_settings = create_override_settings_dropdown('txt2img', row)
+                            override_settings_dropdowns["txt2img"] = override_settings
 
                     elif category == "scripts":
                         with FormGroup(elem_id="txt2img_script_container"):
@@ -785,6 +787,8 @@ def create_ui():
                     elif category == "override_settings":
                         with FormRow(elem_id="img2img_override_settings_row") as row:
                             override_settings = create_override_settings_dropdown('img2img', row)
+                            override_settings_dropdowns["img2img"] = override_settings
+                            override_settings_dropdowns["inpaint"] = override_settings
 
                     elif category == "scripts":
                         with FormGroup(elem_id="img2img_script_container"):
@@ -984,7 +988,7 @@ def create_ui():
 
                 for tabname, button in buttons.items():
                     parameters_copypaste.register_paste_params_button(parameters_copypaste.ParamBinding(
-                        paste_button=button, tabname=tabname, source_text_component=generation_info, source_image_component=image,
+                        paste_button=button, tabname=tabname, source_text_component=generation_info, source_image_component=image, override_settings_component=override_settings_dropdowns.get(tabname)
                     ))
 
         image.change(
